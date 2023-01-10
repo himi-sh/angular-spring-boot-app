@@ -1,0 +1,12 @@
+.DS_Store
+
+#Spring Boot Project
+
+docker-compose-spring-boot-stock/stock-app/.settings*
+docker-compose-spring-boot-stock/stock-app/.classpath
+docker-compose-spring-boot-stock/stock-app/.project
+docker-compose-spring-boot-stock/stock-app/.factorypath
+
+# Angular
+stock-app-angular/.angular/
+stock-app-angular/package-lock.json
