@@ -3,6 +3,7 @@ import { GridReadyEvent, ColDef } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { StockService } from './stock.service';
+import { ActionRendererComponent } from '../renderer-component/action-renderer/action-renderer.component';
 
 @Component({
   selector: 'app-stock',
@@ -15,7 +16,7 @@ export class StockComponent {
   gridApi: any;
   rowData : any[] = [];
   columnDefs : any[] = [];
-
+  frameworkComponent: any;
 
 
   constructor(private http: HttpClient,
@@ -28,9 +29,13 @@ export class StockComponent {
     this.columnDefs = [
       { headerName: 'Name', field: 'name' },
       { headerName: 'Current Price', field: 'currentPrice' },
-      { headerName: 'Last Updated On', field: 'lastUpdate' }
+      { headerName: 'Last Updated On', field: 'lastUpdate' },
+      // { headerName: 'Action', field: '', cellRenderer: 'actionrederer'}
     ];
     this.loadStock();
+    this.frameworkComponent = {
+      // actionrederer: ActionRendererComponent
+    }
   }
   
   
@@ -51,6 +56,10 @@ export class StockComponent {
       },
       (error: any) => { console.log(error);
     });
+  }
+
+  iconClick(event: any) {
+
   }
  
 }
