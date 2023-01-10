@@ -1,13 +1,27 @@
 <div>
-  <p>stock works!</p>
-
-Show Stocks
 
 <ag-grid-angular
    class="ag-theme-alpine"
    [columnDefs]="columnDefs"
    [rowData]="rowData"
    (gridReady)="onGridReady($event)"
-   [frameworkComponents] = "frameworkComponent"
- ></ag-grid-angular>
+   [frameworkComponents] = "frameworkComponent">
+  </ag-grid-angular>
+
+<div>
+  <button class="add-btn" (click)="addStock()">Add Stock</button>
 </div>
+<br>
+<div class="container" *ngIf="!hideForm">
+  <form [formGroup]="stockForm" class="form-group">
+    <label>Name:</label>
+    <input class="form-control" type="text" formControlName="name">
+    <br>
+    <label>Price:</label>
+    <input class="form-control" type="text" formControlName="price">
+    <br>
+    <button class="btn btn-primary" (click)="save()" type="submit" [disabled]="!stockForm.valid">Save</button>
+  </form>
+</div>
+</div>
+

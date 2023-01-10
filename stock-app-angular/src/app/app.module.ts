@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StockComponent } from './stock/stock.component';
@@ -11,6 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from  '@angular/common/http';
 import { ActionRendererComponent } from './renderer-component/action-renderer/action-renderer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestInterceptor } from './RequestInterceptor';
+import { AddStockComponent } from './stock/add-stock/add-stock.component';
 
 @NgModule({
   providers: [
@@ -21,7 +22,8 @@ import { RequestInterceptor } from './RequestInterceptor';
     StockComponent,
     HeaderComponent,
     FooterComponent,
-    ActionRendererComponent
+    ActionRendererComponent,
+    AddStockComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,8 @@ import { RequestInterceptor } from './RequestInterceptor';
     AgGridModule,
     // MatButtonModule,
     // MatMenuModule,
-    HttpClientModule, BrowserAnimationsModule
+    HttpClientModule, BrowserAnimationsModule,
+    ReactiveFormsModule
   ],
   bootstrap: [AppComponent]
 })

@@ -4,6 +4,9 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { StockService } from './stock.service';
 import { ActionRendererComponent } from '../renderer-component/action-renderer/action-renderer.component';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-stock',
@@ -17,10 +20,12 @@ export class StockComponent {
   rowData : any[] = [];
   columnDefs : any[] = [];
   frameworkComponent: any;
-
+  stockForm: any;
+  hideForm = true;
 
   constructor(private http: HttpClient,
-    private service: StockService) {}
+    private service: StockService,
+    private router: Router) {}
   
     
   ngOnInit() {
@@ -36,6 +41,10 @@ export class StockComponent {
     this.frameworkComponent = {
       // actionrederer: ActionRendererComponent
     }
+    this.stockForm = new FormGroup({
+      name: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required)
+    });
   }
   
   
@@ -61,5 +70,30 @@ export class StockComponent {
   iconClick(event: any) {
 
   }
+
+  addStock() {
+    this.router.navigate(['/addStock']);
+    this.hideForm = !this.hideForm;
+  }
+
+  save() {
+    this.hideForm = !this.hideForm;
+    let newRow:any = {
+      name: this.stockForm.controls['name'].value,
+      currentPrice: this.stockForm.controls['price'].value
+    }
+    this.service.postStocks(newRow).subscribe(
+      (response: any) => { 
+        console.log(response);
+        if (response) {
+          newRow['lastUpdate'] = response.lastUpdate;
+          this.rowData.push(newRow);
+          this.gridApi.setRowData(this.rowData);
+        }
+      },
+      (error: any) => { console.log(error);
+    });
+  }
+    
  
 }
