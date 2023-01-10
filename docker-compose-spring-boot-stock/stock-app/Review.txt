@@ -1,0 +1,16 @@
+To support you in further improving your code we would like to provide you with the following feedback on your assignment:
+
+Done
+
+- Preferably try to catch all exceptions instead of using ControllerAdvice
+- Stock entity is used as request object
+- No request validation present
+- 204 returned for stock not found instead of 404
+- No proper error messages are returned when there is an error
+
+TODO:
+
+- using optional isPresent check instead of using map.().orElse
+- Tests don't run standalone without separately spinning up MySQL instance
+- Field injection is used instead of constructor injection
+- tests contains lot of duplicate code

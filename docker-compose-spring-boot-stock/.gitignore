@@ -1,0 +1,15 @@
+#MAVEN
+.m2
+
+#IDE
+.idea/*
+.vscode
+
+#Build
+stock-app/target*
+
+#MISC
+stock-app/.settings*
+stock-app/.classpath
+stock-app/.project
+stock-app/.factorypath
