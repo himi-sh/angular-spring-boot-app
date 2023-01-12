@@ -1,6 +1,2 @@
-<!-- <button mat-button [matMenuTriggerFor]="menu" (click)="openMenu()">Action</button>
-
-<mat-menu #menu="matMenu">
-  <button mat-menu-item (click)="onActionClick($item)">Edit</button>
-  <button mat-menu-item (click)="onActionClick($item)">Delete</button> 
-</mat-menu> -->
+<button [disabled]="!params.node.data.enableButton" (click)="onEditClick($event)">Edit</button>
+<button (click)="onDeleteClick($event)">Delete</button>

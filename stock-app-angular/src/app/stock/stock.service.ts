@@ -20,5 +20,14 @@ export class StockService {
     return this.http.post(URL, request);
   }
 
+  deleteStock(rowId: Number) {
+    const URL = `${this.BASE_URL}/${rowId}`;
+    return this.http.delete(URL);
+  }
+
+  editStock(request: any) {
+    const URL = `${this.BASE_URL}/${request.id}`;
+    return this.http.patch(URL, request);
+  }
 
 }

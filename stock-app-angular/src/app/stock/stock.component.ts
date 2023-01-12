@@ -1,17 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { GridReadyEvent, ColDef } from 'ag-grid-community';
+import { GridReadyEvent, ColDef, GridOptions } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { StockService } from './stock.service';
 import { ActionRendererComponent } from '../renderer-component/action-renderer/action-renderer.component';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
-  styleUrls: ['./stock.component.css']
+  styleUrls: ['./stock.component.css'],
+  entryComponents: [ActionRendererComponent]
 })
 export class StockComponent {
 
@@ -22,31 +22,52 @@ export class StockComponent {
   frameworkComponent: any;
   stockForm: any;
   hideForm = true;
+  gridOptions: GridOptions = {};
 
   constructor(private http: HttpClient,
     private service: StockService,
-    private router: Router) {}
+    private router: Router) {
+      this.columnDefs = [
+        { headerName: 'Name', field: 'name' },
+        { headerName: 'Current Price', field: 'currentPrice', editable: true },
+        { headerName: 'Last Updated On', field: 'lastUpdate' },
+        {
+          headerName: 'Actions',
+          field: 'actions',
+          cellRenderer: 'actionsRenderer',
+        }
+      ];
+      
+      this.gridOptions = {
+        columnDefs: this.columnDefs,
+        rowData: this.rowData,
+        frameworkComponents: {
+          actionsRenderer: ActionRendererComponent
+        },
+        onCellValueChanged: this.onCellValueChanged.bind(this),
+        context: { onEdit: this.editStock.bind(this), onDelete: this.deleteStock.bind(this) },
+      };
+    }
   
     
   ngOnInit() {
-    
-    // {name: '', currentPrice: '', lastUpdate: ''}
-    this.columnDefs = [
-      { headerName: 'Name', field: 'name' },
-      { headerName: 'Current Price', field: 'currentPrice' },
-      { headerName: 'Last Updated On', field: 'lastUpdate' },
-      // { headerName: 'Action', field: '', cellRenderer: 'actionrederer'}
-    ];
+    // this.mockRowData();
     this.loadStock();
-    this.frameworkComponent = {
-      // actionrederer: ActionRendererComponent
-    }
     this.stockForm = new FormGroup({
       name: new FormControl('', Validators.required),
       price: new FormControl('', Validators.required)
     });
   }
-  
+
+  mockRowData() {
+    this.rowData = [
+      {name: 'Test1', 
+      currentPrice: '10',
+      lastUpdate: '',
+      actions: 'edit-delete'
+    }
+    ]
+  }
   
   onGridReady(params: GridReadyEvent) {
     this.gridApi = this.agGrid.api;
@@ -67,16 +88,13 @@ export class StockComponent {
     });
   }
 
-  iconClick(event: any) {
-
-  }
-
   addStock() {
     this.router.navigate(['/addStock']);
     this.hideForm = !this.hideForm;
   }
 
   save() {
+    //add price validation
     this.hideForm = !this.hideForm;
     let newRow:any = {
       name: this.stockForm.controls['name'].value,
@@ -95,5 +113,38 @@ export class StockComponent {
     });
   }
     
- 
+  editStock(params: any) {
+    const data = params.node.data;
+    this.service.editStock(data).subscribe(
+      (response: any) => { 
+        console.log(response);
+        if (response) {
+          params.node.data.enableButton = false;
+          this.loadStock();
+        }
+      },
+      (error: any) => { console.log(error);
+    });
+  }
+
+  deleteStock(row: any) {
+    console.log('Delete stock');
+    this.service.deleteStock(row.id).subscribe(
+      (response: any) => { 
+        console.log(response);
+        if (response) {
+          this.loadStock();
+        }
+      },
+      (error: any) => { console.log(error);
+    });
+  }
+
+  onCellValueChanged(params: any) {
+    const rowIndex = params.rowIndex;
+    var changedData = [params.data];
+    params.node.data.enableButton = true;
+    params.api.applyTransaction({ update: changedData });
+  }
+  
 }
