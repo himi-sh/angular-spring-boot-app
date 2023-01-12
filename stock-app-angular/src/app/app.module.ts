@@ -11,7 +11,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from  '@angular/common/http';
 import { ActionRendererComponent } from './renderer-component/action-renderer/action-renderer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestInterceptor } from './RequestInterceptor';
-import { AddStockComponent } from './stock/add-stock/add-stock.component';
 
 @NgModule({
   providers: [
@@ -22,15 +21,12 @@ import { AddStockComponent } from './stock/add-stock/add-stock.component';
     StockComponent,
     HeaderComponent,
     FooterComponent,
-    ActionRendererComponent,
-    AddStockComponent
+    ActionRendererComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AgGridModule,
-    // MatButtonModule,
-    // MatMenuModule,
     HttpClientModule, BrowserAnimationsModule,
     ReactiveFormsModule
   ],
