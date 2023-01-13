@@ -16,6 +16,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class StockComponent {
 
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+  @ViewChild('paginationTemplate', {static: true}) paginationTemplate: any;
+
   gridApi: any;
   rowData : any[] = [];
   columnDefs : any[] = [];
@@ -23,7 +25,7 @@ export class StockComponent {
   stockForm: any;
   hideForm = true;
   gridOptions: GridOptions = {};
-
+ 
   constructor(private http: HttpClient,
     private service: StockService,
     private router: Router) {
@@ -46,6 +48,8 @@ export class StockComponent {
         },
         onCellValueChanged: this.onCellValueChanged.bind(this),
         context: { onEdit: this.editStock.bind(this), onDelete: this.deleteStock.bind(this) },
+        pagination: true,
+        paginationPageSize: 10
       };
     }
   
@@ -100,6 +104,7 @@ export class StockComponent {
       name: this.stockForm.controls['name'].value,
       currentPrice: this.stockForm.controls['price'].value
     }
+    this.stockForm.reset();
     this.service.postStocks(newRow).subscribe(
       (response: any) => { 
         console.log(response);

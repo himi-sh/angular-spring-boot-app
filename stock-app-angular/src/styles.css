@@ -1,12 +1,23 @@
 @import 'ag-grid-community/styles/ag-grid.css';
 @import 'ag-grid-community/styles/ag-theme-alpine.css';
-
-
-/* @import "ag-grid-community/src/styles/ag-grid.scss";
-@import "ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss"; */
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 .ag-theme-alpine {
     @include ag-theme-alpine();
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.lbl {
+    font-weight: bold;
+    margin-right: 20px;
+}
+.form-row {
+    display: block;
+    text-align: left;
+}
+
+.formBtn {
+    float:right;
+    padding-top: 2px;
+}
