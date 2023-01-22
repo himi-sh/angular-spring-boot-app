@@ -40,11 +40,10 @@ export class LoginComponent {
       (response: any) => {
         this.tokenStorage.saveToken(response.accessToken);
         this.tokenStorage.saveUser(response);
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        this.tokenStorage.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        // this.reloadPage();
         this.router.navigate(['/dashboard']);
       },
       (err:any) => {

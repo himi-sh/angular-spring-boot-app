@@ -28,6 +28,19 @@
               >
               <!-- <div *ngIf="password.invalid && password.touched">Password is invalid</div> -->
           </div>
+          <div
+          class="alert alert-success"
+          role="alert"
+          *ngIf="isSuccessful"
+        >
+          Successfully Registered.
+        </div>
+        <div
+          class="alert alert-danger"
+          role="alert"
+          *ngIf="isSignUpFailed"
+        > Sign Up Failed : {{errorMessage}}
+      </div>
           <button  class="btn btn-primary btn-block" type="submit" (click)="onSubmit()" [disabled]="form.invalid">Register</button>
         </form>
     </div>

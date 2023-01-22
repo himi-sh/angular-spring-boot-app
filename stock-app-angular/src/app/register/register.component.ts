@@ -26,14 +26,17 @@ export class RegisterComponent {
   }
 
   onSubmit(): void {
-    this.authService.register(this.form).subscribe(
+    this.authService.register(this.form.value).subscribe(
       data => {
         console.log(data);
         this.isSuccessful = true;
         this.isSignUpFailed = false;
+        this.form.reset();
+
       },
       err => {
         this.errorMessage = err.error.message;
+        this.isSuccessful = false;
         this.isSignUpFailed = true;
       }
     );
