@@ -12,6 +12,7 @@ import { ActionRendererComponent } from './renderer-component/action-renderer/ac
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestInterceptor } from './RequestInterceptor';
 import { NumericEditorComponent } from './renderer-component/numeric-editor/numeric-editor.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   providers: [
@@ -23,7 +24,8 @@ import { NumericEditorComponent } from './renderer-component/numeric-editor/nume
     HeaderComponent,
     FooterComponent,
     ActionRendererComponent,
-    NumericEditorComponent
+    NumericEditorComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
