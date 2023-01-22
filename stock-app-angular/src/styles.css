@@ -21,3 +21,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     float:right;
     padding-top: 2px;
 }
+
+.deleteBtn {
+    background-color: red;
+    border: none;
+}
+
+.editBtn {
+    background-color: green;
+    border: none;
+    margin-right: 5px
+}

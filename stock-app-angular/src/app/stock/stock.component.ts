@@ -4,8 +4,10 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { StockService } from './stock.service';
 import { ActionRendererComponent } from '../renderer-component/action-renderer/action-renderer.component';
+import { NumericEditorComponent } from '../renderer-component/numeric-editor/numeric-editor.component';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { TokenStorageService } from '../service/token-storage.service';
 
 @Component({
   selector: 'app-stock',
@@ -28,15 +30,24 @@ export class StockComponent {
  
   constructor(private http: HttpClient,
     private service: StockService,
+    private tokenService: TokenStorageService,
     private router: Router) {
       this.columnDefs = [
         { headerName: 'Name', field: 'name' },
-        { headerName: 'Current Price', field: 'currentPrice', editable: true },
-        { headerName: 'Last Updated On', field: 'lastUpdate' },
+        { headerName: 'Current Price', field: 'currentPrice', editable: true, 
+        cellEditor: NumericEditorComponent
+      },
+        { headerName: 'Last Updated On', field: 'lastUpdate',
+        valueFormatter: function(params: any) {
+          let date = new Date(params.value);
+          return date.toLocaleString();
+        }
+        },
         {
           headerName: 'Actions',
           field: 'actions',
           cellRenderer: 'actionsRenderer',
+          hide: (params:any) => this.showActions.bind(this)
         }
       ];
       
@@ -150,6 +161,14 @@ export class StockComponent {
     var changedData = [params.data];
     params.node.data.enableButton = true;
     params.api.applyTransaction({ update: changedData });
+  }
+
+  showActions(params: any) {
+    let user = this.tokenService.getUser();
+    if (this.tokenService.isLoggedIn) {
+      return true;
+    }
+    return false;
   }
   
 }
