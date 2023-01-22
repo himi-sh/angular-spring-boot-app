@@ -8,6 +8,7 @@ const USER_KEY = 'auth-user';
 })
 export class TokenStorageService {
   isLoggedIn = false;
+  isAdminLoggedIn = true;
   
   constructor() { }
 
@@ -32,7 +33,9 @@ export class TokenStorageService {
   }
 
   public getUser(): any {
-    let item =sessionStorage.getItem(USER_KEY) || '';
-    return JSON.parse(item);;
+    let item = sessionStorage.getItem(USER_KEY) || '';
+    if (item) {
+      return JSON.parse(item);
+    }
   }
 }

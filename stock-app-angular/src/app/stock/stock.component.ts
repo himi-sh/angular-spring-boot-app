@@ -27,6 +27,7 @@ export class StockComponent {
   stockForm: any;
   hideForm = true;
   gridOptions: GridOptions = {};
+  isAdminLoggedIn = false;
  
   constructor(private http: HttpClient,
     private service: StockService,
@@ -47,7 +48,7 @@ export class StockComponent {
           headerName: 'Actions',
           field: 'actions',
           cellRenderer: 'actionsRenderer',
-          hide: (params:any) => this.showActions.bind(this)
+          hide: this.isAdminLoggedIn
         }
       ];
       
@@ -66,7 +67,10 @@ export class StockComponent {
   
     
   ngOnInit() {
-    // this.mockRowData();
+    if (this.tokenService.getUser()) {
+      this.isAdminLoggedIn = this.tokenService.getUser().roles.includes('ROLE_ADMIN');
+    }
+    
     this.loadStock();
     this.stockForm = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -164,8 +168,7 @@ export class StockComponent {
   }
 
   showActions(params: any) {
-    let user = this.tokenService.getUser();
-    if (this.tokenService.isLoggedIn) {
+    if (this.isAdminLoggedIn) {
       return true;
     }
     return false;

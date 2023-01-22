@@ -5,3 +5,8 @@ header {
     left:0;
     right:0;
 }
+
+.nav-item {
+    font-size: 14px;
+    font-weight: 100;
+}

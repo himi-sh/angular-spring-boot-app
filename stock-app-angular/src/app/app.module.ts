@@ -15,6 +15,7 @@ import { NumericEditorComponent } from './renderer-component/numeric-editor/nume
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthInterceptor } from './helper/auth.interceptor';
+import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
   providers: [
@@ -28,7 +29,8 @@ import { AuthInterceptor } from './helper/auth.interceptor';
     ActionRendererComponent,
     NumericEditorComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

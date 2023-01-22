@@ -2,8 +2,8 @@
   <div class="container col-lg-6">
     <br>
     <div class="card card-container">
-    <h1 class="text-center">Sign Up</h1>
-    <img
+    <h1 class="text-center"> {{title}}</h1>
+    <img *ngIf="showAvtar"
     id="profile-img"
     src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
     class="profile-img-card"
@@ -41,7 +41,7 @@
           *ngIf="isSignUpFailed"
         > Sign Up Failed : {{errorMessage}}
       </div>
-          <button  class="btn btn-primary btn-block" type="submit" (click)="onSubmit()" [disabled]="form.invalid">Register</button>
+          <button  class="btn btn-primary btn-block" type="submit" (click)="onSubmit()" [disabled]="form.invalid">{{buttonTitle}}</button>
         </form>
     </div>
   </div>
