@@ -13,10 +13,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RequestInterceptor } from './RequestInterceptor';
 import { NumericEditorComponent } from './renderer-component/numeric-editor/numeric-editor.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { AuthInterceptor } from './helper/auth.interceptor';
 
 @NgModule({
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { LoginComponent } from './login/login.component';
     FooterComponent,
     ActionRendererComponent,
     NumericEditorComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

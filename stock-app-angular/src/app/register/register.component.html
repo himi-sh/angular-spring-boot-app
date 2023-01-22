@@ -1,0 +1,35 @@
+
+  <div class="container col-lg-6">
+    <br>
+    <div class="card card-container">
+    <h1 class="text-center">Sign Up</h1>
+    <img
+    id="profile-img"
+    src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+    class="profile-img-card"
+  />
+        <form class="form-group" [formGroup]="form">
+          <br>
+          <!-- <div class="alert alert-warning" >{{errorMessage}}</div>
+          <div class="alert alert-success">{{successMessage}}</div> -->
+          <div class="form-group">
+            <label class="lbl">Email :</label>
+            <input type="email" class="form-control" formControlName="email" id="username" placeholder="Enter User Name">
+             <!-- <div *ngIf="email.invalid && email.touched">Email is invalid</div> -->
+          </div>
+          <div class="form-group">
+            <label class="lbl">Username :</label>
+            <input type="text" class="form-control" formControlName="username" id="username" placeholder="Enter User Name">
+             <!-- <div *ngIf="email.invalid && email.touched">Email is invalid</div> -->
+          </div>
+          <div class="form-group">
+            <label class="lbl">Password:</label>
+            <input type="password" class="form-control" formControlName="password"  id="password" placeholder="Enter password"
+              >
+              <!-- <div *ngIf="password.invalid && password.touched">Password is invalid</div> -->
+          </div>
+          <button  class="btn btn-primary btn-block" type="submit" (click)="onSubmit()" [disabled]="form.invalid">Register</button>
+        </form>
+    </div>
+  </div>
+  
