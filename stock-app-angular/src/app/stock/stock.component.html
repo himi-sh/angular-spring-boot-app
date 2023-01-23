@@ -6,7 +6,7 @@
    [gridOptions]="gridOptions"
    [frameworkComponents] = "frameworkComponent">
   </ag-grid-angular>
-<div>
+<div *ngIf="tokenService?.getUser()?.roles?.includes('ROLE_ADMIN')">
   <button class="btn add-btn" (click)="addStock()">Add Stock</button>
 </div>
 <br>

@@ -13,7 +13,7 @@ public class StockDTO {
 
 	// @DecimalMin("0.0")
 	// @NotEmpty
-	@Range(min = 0, max = 10)
+	@Range(min = 0)
 	private BigDecimal currentPrice;
 
 	public StockDTO() {}

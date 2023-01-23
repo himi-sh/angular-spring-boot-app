@@ -31,7 +31,7 @@ export class StockComponent {
  
   constructor(private http: HttpClient,
     private service: StockService,
-    private tokenService: TokenStorageService,
+    public tokenService: TokenStorageService,
     private router: Router) {
       this.columnDefs = [
         { headerName: 'Name', field: 'name' },
@@ -47,8 +47,7 @@ export class StockComponent {
         {
           headerName: 'Actions',
           field: 'actions',
-          cellRenderer: 'actionsRenderer',
-          hide: this.isAdminLoggedIn
+          cellRenderer: 'actionsRenderer'
         }
       ];
       
@@ -63,13 +62,11 @@ export class StockComponent {
         pagination: true,
         paginationPageSize: 10
       };
+     
     }
   
     
   ngOnInit() {
-    if (this.tokenService.getUser()) {
-      this.isAdminLoggedIn = this.tokenService.getUser().roles.includes('ROLE_ADMIN');
-    }
     
     this.loadStock();
     this.stockForm = new FormGroup({
@@ -91,6 +88,11 @@ export class StockComponent {
   onGridReady(params: GridReadyEvent) {
     this.gridApi = this.agGrid.api;
     this.gridApi.setDomLayout('autoHeight');
+    if (this.tokenService?.getUser()?.roles?.includes('ROLE_ADMIN')) {
+      params.columnApi.setColumnVisible('actions', true);
+    } else {
+      params.columnApi.setColumnVisible('actions', false);
+    }
     this.gridApi.sizeColumnsToFit();
   }
 

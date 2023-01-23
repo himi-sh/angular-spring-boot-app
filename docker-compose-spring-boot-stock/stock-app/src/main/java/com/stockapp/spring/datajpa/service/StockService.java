@@ -29,7 +29,7 @@ public class StockService {
             List<Stock> stocks = stockRepository.findAll();
             return new StockResponse(stocks, stocks.size());
         } else {
-            Pageable pageable = PageRequest.of(currentPage, stocksPerPage, Sort.by("name").ascending());
+            Pageable pageable = PageRequest.of(currentPage - 1, stocksPerPage, Sort.by("name").ascending());
             Page<Stock> page = stockRepository.findAll(pageable);
             StockResponse response = new StockResponse(page.getContent(), page.getTotalPages());
             return response;
